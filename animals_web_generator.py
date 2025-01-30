@@ -17,14 +17,17 @@ def animal_card(data):
     output = ""
 
     for animal in data:
-        output += f"Name: {animal['name']}\n"
-        output += f"Diet: {animal['characteristics']['diet']}\n"
-        output += f"Locations: {animal['locations'][0]}\n"
+        output += '<li class="cards__item">'
+        output += f"Name: {animal['name']}<br/>\n"
+        output += f"Diet: {animal['characteristics']['diet']}<br/>\n"
+        output += f"Locations: {animal['locations'][0]}<br/>\n"
 
         if not animal['characteristics'].get('type', 'not existing') == 'not existing':
-            output += f"Type: {animal['characteristics']['type']}\n"
+            output += f"Type: {animal['characteristics']['type']}<br/>\n"
         else:
             pass
+
+        output += '</li>'
 
     return output
 
