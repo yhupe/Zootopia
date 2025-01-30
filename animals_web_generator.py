@@ -21,11 +21,15 @@ def animal_card(data):
         output += f'<div class="card__title">{animal['name']}</div>'
         output += '<div class="card__text">'
         output += '<ul>'
-        output += f"<li><strong>Diet:</strong> {animal['characteristics']['diet']}</li>"
-        output += f"<li><strong>Locations:</strong> {animal['locations'][0]}</li>"
+        output += f"<li><strong>Diet:</strong> {animal['characteristics']
+        ['diet']}</li>"
+        output += f"<li><strong>Locations:</strong> {animal['locations']
+        [0]}</li>"
 
-        if not animal['characteristics'].get('type', 'not existing') == 'not existing':
-            output += f"<li><strong>Type:</strong> {animal['characteristics']['type']}</li>"
+        if not (animal['characteristics'].get('type', 'not existing')
+                == 'not existing'):
+            output += f"<li><strong>Type:</strong> {animal['characteristics']
+            ['type']}</li>"
         else:
             pass
         output += '</ul>'
@@ -52,7 +56,8 @@ def read_html_template(file_path):
 
 def write_animals_with_data(html_template, animal_cards):
 
-    filled_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animal_cards)
+    filled_html = html_template.replace("__REPLACE_ANIMALS_INFO__",
+                                        animal_cards)
 
     with open("animals.html", "w") as fileobj:
         fileobj.write(filled_html)
