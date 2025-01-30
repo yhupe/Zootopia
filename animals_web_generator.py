@@ -19,15 +19,17 @@ def animal_card(data):
     for animal in data:
         output += '<li class="cards__item">'
         output += f'<div class="card__title">{animal['name']}</div>'
-        output += '<p class="card__text">'
-        output += f"<strong>Diet:</strong> {animal['characteristics']['diet']}<br/>\n"
-        output += f"<strong>Locations:</strong> {animal['locations'][0]}<br/>\n"
+        output += '<div class="card__text">'
+        output += '<ul>'
+        output += f"<li><strong>Diet:</strong> {animal['characteristics']['diet']}</li>"
+        output += f"<li><strong>Locations:</strong> {animal['locations'][0]}</li>"
 
         if not animal['characteristics'].get('type', 'not existing') == 'not existing':
-            output += f"<strong>Type:</strong> {animal['characteristics']['type']}<br/>\n"
+            output += f"<li><strong>Type:</strong> {animal['characteristics']['type']}</li>"
         else:
             pass
-        output += '</p>'
+        output += '</ul>'
+        output += '</div>'
         output += '</li>'
 
     return output
