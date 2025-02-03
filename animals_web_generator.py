@@ -1,6 +1,7 @@
 import data_fetcher
 
 
+
 def animal_card(data, animal):
     """ Receives list of dictionary structure with fetched data for
     the animal a user is searching for + the name searched for.
