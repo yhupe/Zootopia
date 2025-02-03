@@ -1,34 +1,12 @@
-import requests
-import json
-
-animal_url = "https://api.api-ninjas.com/v1/animals"
-my_api_key = "+kAwtvHVtZmB9W0KfmYwTg==IVHZoWi6avk8SiLk"
-
-
-def load_data(file_path):
-    """Receives 'animals_data.json',
-    Loads a JSON file """
-
-    with open(file_path, "r") as fileobj:
-        data = json.load(fileobj)
-        return data
-
-
-def get_animal_data_by_name(url, api_key, animal):
-    """Sends a GET request to the animals API in order to fetch
-     animals data according to the animal the user is looking for by
-     entering a name"""
-
-    search_query = f"?name={animal}"
-    response = requests.get(url + search_query, headers={'X-Api-Key': api_key})
-    response_json = response.json()
-
-    return response_json
+import data_fetcher
 
 
 def animal_card(data, animal):
-    """Receives 'get_animals_data_by_name',
-    Prints Name, Diet, Location, Type of each animal in the .json file"""
+    """ Receives list of dictionary structure with fetched data for
+    the animal a user is searching for + the name searched for.
+    Returns Name, Diet, Location, Type of the respective animal in
+    output variable already in html format, if there is no data for the
+     search query,a notification message is returned as output"""
 
     if data:
 
@@ -61,8 +39,10 @@ def animal_card(data, animal):
 
 
 def read_html_template(file_path):
-    """Receives 'animals_template.html'
-    Reads the html page which is supposed to display the animal information"""
+    """ Receives 'animals_template.html'
+    Reads the html template which is supposed to display the
+    animal information and returns a string with the content of
+    the html text file"""
 
     with open(file_path, "r") as fileobj:
         page_content = fileobj.readlines()
@@ -76,6 +56,10 @@ def read_html_template(file_path):
 
 
 def write_animals_with_data(html_template, animal_cards):
+    """ Receives the string from the html page template,
+    replaces a certain part in the html body with the
+    respective animal information string in html format
+    and safes the generated html code in a file 'animals.html' """
 
     filled_html = html_template.replace("__REPLACE_ANIMALS_INFO__",
                                         animal_cards)
@@ -85,10 +69,13 @@ def write_animals_with_data(html_template, animal_cards):
 
 
 def main():
+    """ Asks the User for an animal to enter,
+    then calls the data fetcher to fetch all data based on the input
+    and calls following functions to read the html template and to generate
+    html code with real animal information"""
 
-    #animals_data = load_data("animals_data.json")
     animal_name = input("Please enter an animal name here: ").strip()
-    animals_data_from_api = get_animal_data_by_name(animal_url, my_api_key, animal_name)
+    animals_data_from_api = data_fetcher.fetch_data(animal_name)
     animal_information = animal_card(animals_data_from_api, animal_name)
     html_template = read_html_template("animals_template.html")
     write_animals_with_data(html_template, animal_information)
