@@ -55,7 +55,7 @@ def animal_card(data, animal):
             output += '</li>'
 
     else:
-        output = f'<div class="card__title">Unfortunately, your search for "{animal}" did not show any results!</div>'
+        output = f'<div class="card__title_not_found">Unfortunately, your search for "{animal}" did not show any results!</div>'
 
     return output
 
